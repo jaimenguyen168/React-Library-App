@@ -2,7 +2,8 @@
 
 import React from "react";
 import AuthForm from "@/components/AuthForm";
-import { signInSchema, signUpSchema } from "@/lib/validation";
+import { signUpSchema } from "@/lib/validation";
+import { signUp } from "@/lib/actions/auth";
 
 const Page = () => (
   <AuthForm
@@ -11,11 +12,11 @@ const Page = () => (
     defaultValues={{
       email: "",
       password: "",
-      fullname: "",
+      fullName: "",
       universityId: 0,
       universityCard: "",
     }}
-    onSubmit={() => {}}
+    onSubmit={signUp}
   />
 );
 
