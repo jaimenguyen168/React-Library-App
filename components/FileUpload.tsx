@@ -54,7 +54,9 @@ const FileUpload = ({
   value,
 }: Props) => {
   const ikUploadRef = useRef(null);
-  const [file, setFile] = useState<{ filePath: string } | null>(null);
+  const [file, setFile] = useState<{ filePath: string | null }>({
+    filePath: value || null,
+  });
   const [progress, setProgress] = useState(0);
   const styles = {
     button: variant === "DARK" ? "bg-dark-300" : "bg-light-600",
@@ -167,14 +169,14 @@ const FileUpload = ({
       {file &&
         (type === "IMAGE" ? (
           <IKImage
-            alt={file.filePath}
-            path={file.filePath}
-            width={500}
-            height={300}
+            alt={file.filePath ?? "Uploaded File"}
+            path={file.filePath ?? ""}
+            width={700}
+            height={400}
           />
         ) : type === "VIDEO" ? (
           <IKVideo
-            path={file.filePath}
+            path={file.filePath ?? ""}
             controls={true}
             className="h-96 w-full rounded-xl"
           />
