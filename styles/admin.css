@@ -150,7 +150,7 @@
         @apply text-lg font-semibold mb-2;
     }
 
-    /* Header */
+    /* Header.tsx */
     .admin-header {
         @apply flex lg:items-end items-start justify-between lg:flex-row flex-col gap-5 sm:mb-10 mb-5;
     }

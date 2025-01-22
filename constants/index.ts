@@ -5,8 +5,8 @@ export const navigationLinks = [
   },
 
   {
-    img: "/icons/user.svg",
-    selectedImg: "/icons/user-fill.svg",
+    img: "/icons/users.svg",
+    selectedImg: "/icons/users-fill.svg",
     href: "/my-profile",
     label: "My Profile",
   },
@@ -34,7 +34,7 @@ export const adminSideBarLinks = [
     text: "Borrow Records",
   },
   {
-    img: "/icons/admin/user.svg",
+    img: "/icons/admin/users.svg",
     route: "/admin/account-requests",
     text: "Account Requests",
   },

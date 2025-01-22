@@ -15,7 +15,7 @@ const Layout = async ({ children }: { children: ReactNode }) => {
   after(async () => {
     if (!session?.user?.id) return;
 
-    // get the user and see if the last activity date is the same as today
+    // get the users and see if the last activity date is the same as today
     const user = await db
       .select()
       .from(users)
