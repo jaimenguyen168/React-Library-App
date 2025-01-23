@@ -3,7 +3,10 @@
 import { db } from "@/database/drizzle";
 import { books } from "@/database/schema";
 
-type BookParams = Omit<Book, "id" | "availableCopies" | "isLoanedBook">;
+type BookParams = Omit<
+  Book,
+  "id" | "availableCopies" | "isLoanedBook" | "createdAt"
+>;
 
 export const createBook = async (params: BookParams) => {
   try {
@@ -12,6 +15,7 @@ export const createBook = async (params: BookParams) => {
       .values({
         ...params,
         availableCopies: params.totalCopies,
+        createdAt: new Date(),
       })
       .returning();
 
