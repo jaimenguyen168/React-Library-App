@@ -2,7 +2,7 @@
 
 import { db } from "@/database/drizzle";
 import { books, borrowRecords } from "@/database/schema";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import dayjs from "dayjs";
 
 export const borrowBook = async (params: BorrowBookParams) => {
@@ -75,6 +75,8 @@ export const fetchBorrowedBooks = async (userId: string) => {
       }),
     );
 
+    console.log(JSON.stringify(borrowedBooks, null, 2));
+
     return {
       success: true,
       data: JSON.parse(JSON.stringify(borrowedBooks)),
@@ -86,5 +88,27 @@ export const fetchBorrowedBooks = async (userId: string) => {
       success: false,
       error: "An error occurred while fetching borrowed books.",
     };
+  }
+};
+
+export const checkIfBorrowedByUser = async (bookId: string, userId: string) => {
+  try {
+    const record = await db
+      .select()
+      .from(borrowRecords)
+      .where(
+        and(
+          eq(borrowRecords.bookId, bookId),
+          eq(borrowRecords.userId, userId),
+          eq(borrowRecords.status, "BORROWED"),
+        ),
+      )
+      .limit(1);
+
+    // Return true if a record exists, otherwise false
+    return !!record[0];
+  } catch (error) {
+    console.log("Error checking borrowed book:", error);
+    return false;
   }
 };

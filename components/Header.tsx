@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 const Header = () => {
   return (
-    <header className="my-10 flex justify-between gap-5">
+    <header className="my-10 flex justify-between gap-5 w-full">
       <Link href="/">
         <Image src="/icons/logo.svg" width={40} height={40} alt="logo" />
       </Link>

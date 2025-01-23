@@ -7,6 +7,7 @@ import { desc } from "drizzle-orm";
 
 const Home = async () => {
   const session = await auth();
+  const userId = session?.user?.id as string;
 
   const latestBooks = (await db
     .select()
@@ -18,11 +19,14 @@ const Home = async () => {
     <>
       <BookOverview {...latestBooks[0]} userId={session?.user?.id as string} />
 
-      <BookList
-        title="Latest Books"
-        books={latestBooks.slice(1)}
-        containerClassname="mt-28"
-      />
+      {latestBooks.length > 1 && (
+        <BookList
+          title="Latest Books"
+          books={latestBooks.slice(1)}
+          containerClassname="mt-28"
+          userId={userId}
+        />
+      )}
     </>
   );
 };
