@@ -48,3 +48,43 @@ export const borrowBook = async (params: BorrowBookParams) => {
     };
   }
 };
+
+export const fetchBorrowedBooks = async (userId: string) => {
+  try {
+    const records = await db
+      .select()
+      .from(borrowRecords)
+      .where(eq(borrowRecords.userId, userId))
+      .limit(10);
+
+    if (!records[0]) {
+      return {
+        success: false,
+        error: "No books borrowed.",
+      };
+    }
+
+    const borrowedBooks = await Promise.all(
+      records.map(async (record) => {
+        const [book] = await db
+          .select()
+          .from(books)
+          .where(eq(books.id, record.bookId));
+
+        return book;
+      }),
+    );
+
+    return {
+      success: true,
+      data: JSON.parse(JSON.stringify(borrowedBooks)),
+    };
+  } catch (error) {
+    console.log(error);
+
+    return {
+      success: false,
+      error: "An error occurred while fetching borrowed books.",
+    };
+  }
+};
