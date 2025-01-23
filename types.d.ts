@@ -22,3 +22,8 @@ interface AuthCredentials {
   universityId: number;
   universityCard: string;
 }
+
+interface BorrowBookParams {
+  bookId: string;
+  userId: string;
+}
